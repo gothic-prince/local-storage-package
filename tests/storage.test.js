@@ -1,7 +1,6 @@
-import StorageSimple from '../src/StorageSimple';
-
+import { StorageMock } from '../dist/index'
 describe('storage', () => {
-  const storage = new StorageSimple()
+  const storage = new StorageMock()
 
   it('should return false', () => {
     expect(storage.hasKey('user_id')).toBe(false)
