@@ -1,4 +1,5 @@
 import StorageSimple from '../src/StorageSimple';
+
 describe('storage', () => {
   const storage = new StorageSimple()
 
