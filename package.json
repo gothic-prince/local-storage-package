@@ -1,9 +1,10 @@
 {
   "name": "storage-manager-es",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "test": "jest"
   },
+  "main": "index.js",
   "devDependencies": {
     "jest": "^22.1.4"
   }
