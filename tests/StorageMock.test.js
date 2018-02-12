@@ -1,5 +1,5 @@
 import { StorageMock } from '../dist/index'
-describe('storage', () => {
+describe('StorageMock', () => {
   const storage = new StorageMock()
 
   it('should return false', () => {

@@ -10,6 +10,10 @@ var _StorageInterface2 = require('./StorageInterface');
 
 var _StorageInterface3 = _interopRequireDefault(_StorageInterface2);
 
+var _StorageSimple = require('./StorageSimple');
+
+var _StorageSimple2 = _interopRequireDefault(_StorageSimple);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24,18 +28,39 @@ var StorageLocal = function (_StorageInterface) {
   function StorageLocal() {
     _classCallCheck(this, StorageLocal);
 
-    return _possibleConstructorReturn(this, (StorageLocal.__proto__ || Object.getPrototypeOf(StorageLocal)).apply(this, arguments));
+    /**
+     * @type {StorageInterface}
+     * @private
+     */
+    var _this = _possibleConstructorReturn(this, (StorageLocal.__proto__ || Object.getPrototypeOf(StorageLocal)).call(this));
+
+    _this._mock = new _StorageSimple2.default();
+    return _this;
   }
+  /**
+   * @return {StorageInterface}
+   */
+
 
   _createClass(StorageLocal, [{
-    key: 'setData',
+    key: 'getStorage',
+    value: function getStorage() {
+      return this._mock;
+    }
 
     /**
      * @param key {String}
      * @param value {String|Number|Boolean}
      */
+
+  }, {
+    key: 'setData',
     value: function setData(key, value) {
-      localStorage.setItem(key, value);
+      if (localStorage) {
+        localStorage.setItem(key, value);
+      } else {
+        this.getStorage().setData(key, value);
+      }
     }
 
     /**
@@ -46,7 +71,11 @@ var StorageLocal = function (_StorageInterface) {
   }, {
     key: 'getData',
     value: function getData(key) {
-      return localStorage.getItem(key);
+      if (localStorage) {
+        return localStorage.getItem(key);
+      } else {
+        return this.getStorage().getData(key);
+      }
     }
 
     /**

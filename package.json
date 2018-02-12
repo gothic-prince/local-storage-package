@@ -1,8 +1,13 @@
 {
   "name": "storage-manager-es",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "globals": {
+      "localStorage": false
+    }
   },
   "main": "dist/index.js",
   "devDependencies": {

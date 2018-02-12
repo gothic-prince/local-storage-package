@@ -1,11 +1,31 @@
 import StorageInterface from './StorageInterface'
+import StorageSimple from './StorageSimple'
 export default class StorageLocal extends StorageInterface {
+  constructor() {
+    super()
+    /**
+     * @type {StorageInterface}
+     * @private
+     */
+    this._mock = new StorageSimple()
+  }
+  /**
+   * @return {StorageInterface}
+   */
+  getStorage () {
+    return this._mock
+  }
+
   /**
    * @param key {String}
    * @param value {String|Number|Boolean}
    */
   setData (key, value) {
-    localStorage.setItem(key, value)
+    if (localStorage) {
+      localStorage.setItem(key, value)
+    } else {
+      this.getStorage().setData(key, value)
+    }
   }
 
   /**
@@ -13,7 +33,11 @@ export default class StorageLocal extends StorageInterface {
    * @return {String|Number|Boolean}
    */
   getData (key) {
-    return localStorage.getItem(key)
+    if (localStorage) {
+      return localStorage.getItem(key)
+    } else {
+      return this.getStorage().getData(key)
+    }
   }
 
   /**
